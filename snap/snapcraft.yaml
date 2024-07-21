@@ -1,0 +1,34 @@
+name: whois
+version: 5.5.23
+base: core24 # the base snap is the execution environment for this snap
+summary: A command-line client for WHOIS.
+description: |
+  This package provides a commandline client for the WHOIS (RFC 3912)
+  protocol, which queries online servers for information such as contact
+  details for domains and IP address assignments.
+  It can intelligently select the appropriate WHOIS server for most queries.
+
+grade: stable
+confinement: strict
+adopt-info: whois
+
+apps:
+  whois:
+    command: usr/bin/whois
+    plugs:
+      - network
+
+platforms:
+  amd64:
+  arm64:
+  riscv64:
+
+parts:
+  whois:
+    plugin: make
+    source: https://github.com/rfc1036/whois.git
+    source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    source-depth: 1
+    build-packages:
+      - gettext
+      - pkgconf
